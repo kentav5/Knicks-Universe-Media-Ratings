@@ -1,391 +1,536 @@
-<!-- ========================= -->
-<!-- NATIONAL MEDIA – 11 CARDS -->
-<!-- ========================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>KnicksUniverse – Media Ratings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<!-- 1. Zach Lowe -->
-<article class="media-card" data-type="national">
-  <div class="media-photo-wrapper">
-    <img src="images/media/zach_lowe.jpg" alt="Zach Lowe" class="media-photo">
-  </div>
-  <header class="media-header">
-    <div>
-      <div class="media-name">Zach Lowe</div>
-      <div class="media-outlet">ESPN – The Lowe Post</div>
-    </div>
-    <span class="media-tag">National</span>
-  </header>
-  <div class="rating-summary">
-    <div>
-      <div class="rating-summary-label">Avg Fan Score</div>
-      <div class="rating-summary-value" data-media-id="zach_lowe">--</div>
-    </div>
-    <div class="rating-summary-meta">
-      <span data-votes-id="zach_lowe">0</span> votes
-    </div>
-  </div>
-  <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
-    <input type="hidden" name="entry.123456" value="Zach Lowe">
-    <input type="hidden" name="entry.654321" value="" class="rating-input">
-    <div class="rating-options">
-      <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
-      <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
-    </div>
-    <div class="submit-row">
-      <button class="submit-btn" type="submit" disabled>Submit rating</button>
-      <div class="submit-status"></div>
-    </div>
-  </form>
-</article>
+  <style>
+    :root{
+      --knicks-blue:#006BB6;
+      --knicks-orange:#F58426;
+      --bg:#050816;
+      --card:#0B1020;
+      --text:#F9FAFB;
+      --muted:#9CA3AF;
+      --border:#1F2937;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background: radial-gradient(circle at top, #111827 0, #050816 45%, #020617 100%);
+      color:var(--text);
+    }
+    .page-wrap{max-width:1120px;margin:0 auto;padding:28px 16px 44px}
+    .ku-subnav{display:flex;gap:14px;margin-bottom:10px;font-size:.95rem}
+    .ku-subnav a{color:var(--muted);text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px}
+    .ku-subnav a:hover{color:var(--text);border-bottom-color:var(--knicks-orange)}
+    .page-title{color:var(--muted);text-transform:uppercase;letter-spacing:.18em;font-size:.75rem;margin-bottom:6px}
+    h1{margin:0 0 6px;font-size:2.2rem}
+    .page-subtitle{color:var(--muted);max-width:720px;line-height:1.55;margin:0}
+    .legend{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:8px;
+      font-size:.82rem;
+    }
+    .legend span{
+      padding:8px 10px;border-radius:14px;border:1px solid var(--border);
+      background:rgba(15,23,42,.82);color:var(--muted)
+    }
 
-<!-- 2. Stephen A. Smith -->
-<article class="media-card" data-type="national">
-  <div class="media-photo-wrapper">
-    <img src="images/media/stephen_a_smith.jpg" alt="Stephen A. Smith" class="media-photo">
-  </div>
-  <header class="media-header">
-    <div>
-      <div class="media-name">Stephen A. Smith</div>
-      <div class="media-outlet">ESPN</div>
-    </div>
-    <span class="media-tag">National</span>
-  </header>
-  <div class="rating-summary">
-    <div>
-      <div class="rating-summary-label">Avg Fan Score</div>
-      <div class="rating-summary-value" data-media-id="stephen_a_smith">--</div>
-    </div>
-    <div class="rating-summary-meta">
-      <span data-votes-id="stephen_a_smith">0</span> votes
-    </div>
-  </div>
-  <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
-    <input type="hidden" name="entry.123456" value="Stephen A. Smith">
-    <input type="hidden" name="entry.654321" value="" class="rating-input">
-    <div class="rating-options">
-      <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
-      <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
-    </div>
-    <div class="submit-row">
-      <button class="submit-btn" type="submit" disabled>Submit rating</button>
-      <div class="submit-status"></div>
-    </div>
-  </form>
-</article>
+    .cards-grid{
+      margin-top:22px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:18px;
+    }
+    .media-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:18px 16px 16px;
+      box-shadow:0 16px 40px rgba(0,0,0,.45);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .media-photo-wrapper{display:flex;justify-content:center;margin-top:2px}
+    .media-photo{
+      width:92px;height:92px;border-radius:999px;object-fit:cover;
+      border:2px solid var(--border);background:#020617
+    }
+    .media-header{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+    .media-name{font-weight:900;font-size:1.05rem}
+    .media-outlet{color:var(--muted);font-size:.9rem;margin-top:2px}
+    .media-tag{color:var(--muted);font-size:.75rem;border:1px solid var(--border);padding:3px 10px;border-radius:999px}
 
-<!-- 3. Kevin O'Connor (KOC) -->
-<article class="media-card" data-type="national">
-  <div class="media-photo-wrapper">
-    <img src="images/media/kevin_oconnor.jpg" alt="Kevin O'Connor (KOC)" class="media-photo">
-  </div>
-  <header class="media-header">
-    <div>
-      <div class="media-name">Kevin O'Connor (KOC)</div>
-      <div class="media-outlet">The Ringer</div>
-    </div>
-    <span class="media-tag">National</span>
-  </header>
-  <div class="rating-summary">
-    <div>
-      <div class="rating-summary-label">Avg Fan Score</div>
-      <div class="rating-summary-value" data-media-id="kevin_oconnor">--</div>
-    </div>
-    <div class="rating-summary-meta">
-      <span data-votes-id="kevin_oconnor">0</span> votes
-    </div>
-  </div>
-  <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
-    <input type="hidden" name="entry.123456" value="Kevin O'Connor (KOC)">
-    <input type="hidden" name="entry.654321" value="" class="rating-input">
-    <div class="rating-options">
-      <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
-      <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
-    </div>
-    <div class="submit-row">
-      <button class="submit-btn" type="submit" disabled>Submit rating</button>
-      <div class="submit-status"></div>
-    </div>
-  </form>
-</article>
+    .rating-summary{display:flex;justify-content:space-between;align-items:flex-end;margin-top:2px}
+    .rating-summary-label{color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-size:.72rem}
+    .rating-summary-value{font-size:1.9rem;font-weight:900}
+    .rating-summary-meta{color:var(--muted);font-size:.85rem}
 
-<!-- 4. Chris Vernon -->
-<article class="media-card" data-type="national">
-  <div class="media-photo-wrapper">
-    <img src="images/media/chris_vernon.jpg" alt="Chris Vernon" class="media-photo">
-  </div>
-  <header class="media-header">
-    <div>
-      <div class="media-name">Chris Vernon</div>
-      <div class="media-outlet">The Ringer</div>
-    </div>
-    <span class="media-tag">National</span>
-  </header>
-  <div class="rating-summary">
-    <div>
-      <div class="rating-summary-label">Avg Fan Score</div>
-      <div class="rating-summary-value" data-media-id="chris_vernon">--</div>
-    </div>
-    <div class="rating-summary-meta">
-      <span data-votes-id="chris_vernon">0</span> votes
-    </div>
-  </div>
-  <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
-    <input type="hidden" name="entry.123456" value="Chris Vernon">
-    <input type="hidden" name="entry.654321" value="" class="rating-input">
-    <div class="rating-options">
-      <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
-      <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
-    </div>
-    <div class="submit-row">
-      <button class="submit-btn" type="submit" disabled>Submit rating</button>
-      <div class="submit-status"></div>
-    </div>
-  </form>
-</article>
+    .rating-options{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+    .rating-pill{
+      width:34px;height:34px;border-radius:999px;
+      border:1px solid var(--border);
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;user-select:none;background:#0F172A;
+      transition:transform .08s ease;
+    }
+    .rating-pill:hover{transform:translateY(-1px)}
+    .rating-pill.selected{background:var(--knicks-orange);border-color:var(--knicks-orange);color:#fff}
 
-<!-- 5. Amin Elhassan -->
-<article class="media-card" data-type="national">
-  <div class="media-photo-wrapper">
-    <img src="images/media/amin_elhassan.jpg" alt="Amin Elhassan" class="media-photo">
-  </div>
-  <header class="media-header">
-    <div>
-      <div class="media-name">Amin Elhassan</div>
-      <div class="media-outlet">Meadowlark Media</div>
-    </div>
-    <span class="media-tag">National</span>
-  </header>
-  <div class="rating-summary">
-    <div>
-      <div class="rating-summary-label">Avg Fan Score</div>
-      <div class="rating-summary-value" data-media-id="amin_elhassan">--</div>
-    </div>
-    <div class="rating-summary-meta">
-      <span data-votes-id="amin_elhassan">0</span> votes
-    </div>
-  </div>
-  <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
-    <input type="hidden" name="entry.123456" value="Amin Elhassan">
-    <input type="hidden" name="entry.654321" value="" class="rating-input">
-    <div class="rating-options">
-      <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
-      <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
-    </div>
-    <div class="submit-row">
-      <button class="submit-btn" type="submit" disabled>Submit rating</button>
-      <div class="submit-status"></div>
-    </div>
-  </form>
-</article>
+    .submit-row{display:flex;justify-content:space-between;gap:10px;margin-top:10px;align-items:center}
+    .submit-btn{
+      padding:8px 14px;border:0;border-radius:999px;font-weight:800;
+      background:linear-gradient(90deg,var(--knicks-orange),var(--knicks-blue));
+      color:#fff;cursor:pointer
+    }
+    .submit-btn:disabled{opacity:.45;cursor:default}
+    .submit-status{color:var(--muted);font-size:.85rem}
 
-<!-- 6. Bomani Jones -->
-<article class="media-card" data-type="national">
-  <div class="media-photo-wrapper">
-    <img src="images/media/bomani_jones.jpg" alt="Bomani Jones" class="media-photo">
-  </div>
-  <header class="media-header">
-    <div>
-      <div class="media-name">Bomani Jones</div>
-      <div class="media-outlet">Analyst</div>
-    </div>
-    <span class="media-tag">National</span>
-  </header>
-  <div class="rating-summary">
-    <div>
-      <div class="rating-summary-label">Avg Fan Score</div>
-      <div class="rating-summary-value" data-media-id="bomani_jones">--</div>
-    </div>
-    <div class="rating-summary-meta">
-      <span data-votes-id="bomani_jones">0</span> votes
-    </div>
-  </div>
-  <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
-    <input type="hidden" name="entry.123456" value="Bomani Jones">
-    <input type="hidden" name="entry.654321" value="" class="rating-input">
-    <div class="rating-options">
-      <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
-      <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
-    </div>
-    <div class="submit-row">
-      <button class="submit-btn" type="submit" disabled>Submit rating</button>
-      <div class="submit-status"></div>
-    </div>
-  </form>
-</article>
+    @media (max-width:640px){
+      h1{font-size:1.8rem}
+    }
+  </style>
+</head>
 
-<!-- 7. Nick Wright -->
-<article class="media-card" data-type="national">
-  <div class="media-photo-wrapper">
-    <img src="images/media/nick_wright.jpg" alt="Nick Wright" class="media-photo">
-  </div>
-  <header class="media-header">
-    <div>
-      <div class="media-name">Nick Wright</div>
-      <div class="media-outlet">FS1</div>
-    </div>
-    <span class="media-tag">National</span>
-  </header>
-  <div class="rating-summary">
-    <div>
-      <div class="rating-summary-label">Avg Fan Score</div>
-      <div class="rating-summary-value" data-media-id="nick_wright">--</div>
-    </div>
-    <div class="rating-summary-meta">
-      <span data-votes-id="nick_wright">0</span> votes
-    </div>
-  </div>
-  <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
-    <input type="hidden" name="entry.123456" value="Nick Wright">
-    <input type="hidden" name="entry.654321" value="" class="rating-input">
-    <div class="rating-options">
-      <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
-      <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
-    </div>
-    <div class="submit-row">
-      <button class="submit-btn" type="submit" disabled>Submit rating</button>
-      <div class="submit-status"></div>
-    </div>
-  </form>
-</article>
+<body>
+  <div class="page-wrap">
 
-<!-- 8. Skip Bayless -->
-<article class="media-card" data-type="national">
-  <div class="media-photo-wrapper">
-    <img src="images/media/skip_bayless.jpg" alt="Skip Bayless" class="media-photo">
-  </div>
-  <header class="media-header">
-    <div>
-      <div class="media-name">Skip Bayless</div>
-      <div class="media-outlet">FS1</div>
-    </div>
-    <span class="media-tag">National</span>
-  </header>
-  <div class="rating-summary">
-    <div>
-      <div class="rating-summary-label">Avg Fan Score</div>
-      <div class="rating-summary-value" data-media-id="skip_bayless">--</div>
-    </div>
-    <div class="rating-summary-meta">
-      <span data-votes-id="skip_bayless">0</span> votes
-    </div>
-  </div>
-  <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
-    <input type="hidden" name="entry.123456" value="Skip Bayless">
-    <input type="hidden" name="entry.654321" value="" class="rating-input">
-    <div class="rating-options">
-      <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
-      <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
-    </div>
-    <div class="submit-row">
-      <button class="submit-btn" type="submit" disabled>Submit rating</button>
-      <div class="submit-status"></div>
-    </div>
-  </form>
-</article>
+    <nav class="ku-subnav">
+      <!-- If you don't have player-ratings.html in THIS repo, this link can 404. That's okay. -->
+      <a href="player-ratings.html">Player Ratings</a>
+      <a href="media-ratings.html">Media Ratings</a>
+    </nav>
 
-<!-- 9. Shannon Sharpe -->
-<article class="media-card" data-type="national">
-  <div class="media-photo-wrapper">
-    <img src="images/media/shannon_sharpe.jpg" alt="Shannon Sharpe" class="media-photo">
-  </div>
-  <header class="media-header">
-    <div>
-      <div class="media-name">Shannon Sharpe</div>
-      <div class="media-outlet">Nightcap / Independent</div>
-    </div>
-    <span class="media-tag">National</span>
-  </header>
-  <div class="rating-summary">
-    <div>
-      <div class="rating-summary-label">Avg Fan Score</div>
-      <div class="rating-summary-value" data-media-id="shannon_sharpe">--</div>
-    </div>
-    <div class="rating-summary-meta">
-      <span data-votes-id="shannon_sharpe">0</span> votes
-    </div>
-  </div>
-  <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
-    <input type="hidden" name="entry.123456" value="Shannon Sharpe">
-    <input type="hidden" name="entry.654321" value="" class="rating-input">
-    <div class="rating-options">
-      <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
-      <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
-    </div>
-    <div class="submit-row">
-      <button class="submit-btn" type="submit" disabled>Submit rating</button>
-      <div class="submit-status"></div>
-    </div>
-  </form>
-</article>
+    <div class="page-title">KnicksUniverse</div>
+    <h1>Media Ratings</h1>
+    <p class="page-subtitle">
+      Rate national NBA media personalities from <strong>10 (GOAT 🐐)</strong> to <strong>1 (Trash 🗑️)</strong>.
+    </p>
 
-<!-- 10. Malika Andrews -->
-<article class="media-card" data-type="national">
-  <div class="media-photo-wrapper">
-    <img src="images/media/malika_andrews.jpg" alt="Malika Andrews" class="media-photo">
-  </div>
-  <header class="media-header">
-    <div>
-      <div class="media-name">Malika Andrews</div>
-      <div class="media-outlet">ESPN – NBA Today</div>
+    <div class="legend">
+      <span><strong>10 – GOAT 🐐</strong> · All-time elite, voice of the fanbase.</span>
+      <span><strong>9 – Prime Time 🎤</strong> · Top-tier analyst or broadcaster.</span>
+      <span><strong>8 – Trusted Voice 📣</strong> · Consistently reliable, strong takes.</span>
+      <span><strong>7 – Solid Analyst 📝</strong> · Good insight, explains the game well.</span>
+      <span><strong>6 – Hit or Miss 🎯</strong> · Mix of great and questionable takes.</span>
+      <span><strong>5 – Mid Take Machine 😐</strong> · Perfectly average, nothing special.</span>
+      <span><strong>4 – Questionable Takes 🤨</strong> · Below-average insight, often off.</span>
+      <span><strong>3 – Hot-Take Factory 🔥</strong> · Drama and clicks over accuracy.</span>
+      <span><strong>2 – Clueless Commentator 😵</strong> · Weak understanding, mostly wrong.</span>
+      <span><strong>1 – Trash 🗑️</strong> · Bottom tier, universally disliked.</span>
     </div>
-    <span class="media-tag">National</span>
-  </header>
-  <div class="rating-summary">
-    <div>
-      <div class="rating-summary-label">Avg Fan Score</div>
-      <div class="rating-summary-value" data-media-id="malika_andrews">--</div>
-    </div>
-    <div class="rating-summary-meta">
-      <span data-votes-id="malika_andrews">0</span> votes
-    </div>
-  </div>
-  <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
-    <input type="hidden" name="entry.123456" value="Malika Andrews">
-    <input type="hidden" name="entry.654321" value="" class="rating-input">
-    <div class="rating-options">
-      <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
-      <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
-    </div>
-    <div class="submit-row">
-      <button class="submit-btn" type="submit" disabled>Submit rating</button>
-      <div class="submit-status"></div>
-    </div>
-  </form>
-</article>
 
-<!-- 11. Kendrick Perkins -->
-<article class="media-card" data-type="national">
-  <div class="media-photo-wrapper">
-    <img src="images/media/kendrick_perkins.jpg" alt="Kendrick Perkins" class="media-photo">
-  </div>
-  <header class="media-header">
-    <div>
-      <div class="media-name">Kendrick Perkins</div>
-      <div class="media-outlet">ESPN – Analyst</div>
-    </div>
-    <span class="media-tag">National</span>
-  </header>
-  <div class="rating-summary">
-    <div>
-      <div class="rating-summary-label">Avg Fan Score</div>
-      <div class="rating-summary-value" data-media-id="kendrick_perkins">--</div>
-    </div>
-    <div class="rating-summary-meta">
-      <span data-votes-id="kendrick_perkins">0</span> votes
-    </div>
-  </div>
-  <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
-    <input type="hidden" name="entry.123456" value="Kendrick Perkins">
-    <input type="hidden" name="entry.654321" value="" class="rating-input">
-    <div class="rating-options">
-      <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
-      <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
-    </div>
-    <div class="submit-row">
-      <button class="submit-btn" type="submit" disabled>Submit rating</button>
-      <div class="submit-status"></div>
-    </div>
-  </form>
-</article>
+    <div class="cards-grid" id="mediaGrid">
 
+      <!-- NOTE ABOUT PHOTOS:
+           These use fast placeholder avatars right now.
+           Later you can replace each src with:
+           images/media/NAME.jpg
+      -->
 
+      <!-- 1. Zach Lowe -->
+      <article class="media-card" data-type="national">
+        <div class="media-photo-wrapper">
+          <img class="media-photo" src="https://ui-avatars.com/api/?name=Zach+Lowe&background=0B1020&color=F9FAFB&size=256" alt="Zach Lowe">
+        </div>
+        <header class="media-header">
+          <div>
+            <div class="media-name">Zach Lowe</div>
+            <div class="media-outlet">ESPN – The Lowe Post</div>
+          </div>
+          <span class="media-tag">National</span>
+        </header>
+        <div class="rating-summary">
+          <div>
+            <div class="rating-summary-label">Avg Fan Score</div>
+            <div class="rating-summary-value" data-media-id="zach_lowe">--</div>
+          </div>
+          <div class="rating-summary-meta"><span data-votes-id="zach_lowe">0</span> votes</div>
+        </div>
+        <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
+          <input type="hidden" name="entry.123456" value="Zach Lowe">
+          <input type="hidden" name="entry.654321" value="" class="rating-input">
+          <div class="rating-options">
+            <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
+            <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
+          </div>
+          <div class="submit-row">
+            <button class="submit-btn" type="submit" disabled>Submit rating</button>
+            <div class="submit-status"></div>
+          </div>
+        </form>
+      </article>
+
+      <!-- 2. Stephen A. Smith -->
+      <article class="media-card" data-type="national">
+        <div class="media-photo-wrapper">
+          <img class="media-photo" src="https://ui-avatars.com/api/?name=Stephen+A+Smith&background=0B1020&color=F9FAFB&size=256" alt="Stephen A. Smith">
+        </div>
+        <header class="media-header">
+          <div>
+            <div class="media-name">Stephen A. Smith</div>
+            <div class="media-outlet">ESPN</div>
+          </div>
+          <span class="media-tag">National</span>
+        </header>
+        <div class="rating-summary">
+          <div>
+            <div class="rating-summary-label">Avg Fan Score</div>
+            <div class="rating-summary-value" data-media-id="stephen_a_smith">--</div>
+          </div>
+          <div class="rating-summary-meta"><span data-votes-id="stephen_a_smith">0</span> votes</div>
+        </div>
+        <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
+          <input type="hidden" name="entry.123456" value="Stephen A. Smith">
+          <input type="hidden" name="entry.654321" value="" class="rating-input">
+          <div class="rating-options">
+            <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
+            <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
+          </div>
+          <div class="submit-row">
+            <button class="submit-btn" type="submit" disabled>Submit rating</button>
+            <div class="submit-status"></div>
+          </div>
+        </form>
+      </article>
+
+      <!-- 3. Kevin O'Connor (KOC) -->
+      <article class="media-card" data-type="national">
+        <div class="media-photo-wrapper">
+          <img class="media-photo" src="https://ui-avatars.com/api/?name=Kevin+O%27Connor&background=0B1020&color=F9FAFB&size=256" alt="Kevin O'Connor (KOC)">
+        </div>
+        <header class="media-header">
+          <div>
+            <div class="media-name">Kevin O'Connor (KOC)</div>
+            <div class="media-outlet">The Ringer</div>
+          </div>
+          <span class="media-tag">National</span>
+        </header>
+        <div class="rating-summary">
+          <div>
+            <div class="rating-summary-label">Avg Fan Score</div>
+            <div class="rating-summary-value" data-media-id="kevin_oconnor">--</div>
+          </div>
+          <div class="rating-summary-meta"><span data-votes-id="kevin_oconnor">0</span> votes</div>
+        </div>
+        <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
+          <input type="hidden" name="entry.123456" value="Kevin O'Connor (KOC)">
+          <input type="hidden" name="entry.654321" value="" class="rating-input">
+          <div class="rating-options">
+            <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
+            <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
+          </div>
+          <div class="submit-row">
+            <button class="submit-btn" type="submit" disabled>Submit rating</button>
+            <div class="submit-status"></div>
+          </div>
+        </form>
+      </article>
+
+      <!-- 4. Chris Vernon -->
+      <article class="media-card" data-type="national">
+        <div class="media-photo-wrapper">
+          <img class="media-photo" src="https://ui-avatars.com/api/?name=Chris+Vernon&background=0B1020&color=F9FAFB&size=256" alt="Chris Vernon">
+        </div>
+        <header class="media-header">
+          <div>
+            <div class="media-name">Chris Vernon</div>
+            <div class="media-outlet">The Ringer</div>
+          </div>
+          <span class="media-tag">National</span>
+        </header>
+        <div class="rating-summary">
+          <div>
+            <div class="rating-summary-label">Avg Fan Score</div>
+            <div class="rating-summary-value" data-media-id="chris_vernon">--</div>
+          </div>
+          <div class="rating-summary-meta"><span data-votes-id="chris_vernon">0</span> votes</div>
+        </div>
+        <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
+          <input type="hidden" name="entry.123456" value="Chris Vernon">
+          <input type="hidden" name="entry.654321" value="" class="rating-input">
+          <div class="rating-options">
+            <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
+            <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
+          </div>
+          <div class="submit-row">
+            <button class="submit-btn" type="submit" disabled>Submit rating</button>
+            <div class="submit-status"></div>
+          </div>
+        </form>
+      </article>
+
+      <!-- 5. Amin Elhassan -->
+      <article class="media-card" data-type="national">
+        <div class="media-photo-wrapper">
+          <img class="media-photo" src="https://ui-avatars.com/api/?name=Amin+Elhassan&background=0B1020&color=F9FAFB&size=256" alt="Amin Elhassan">
+        </div>
+        <header class="media-header">
+          <div>
+            <div class="media-name">Amin Elhassan</div>
+            <div class="media-outlet">Meadowlark Media</div>
+          </div>
+          <span class="media-tag">National</span>
+        </header>
+        <div class="rating-summary">
+          <div>
+            <div class="rating-summary-label">Avg Fan Score</div>
+            <div class="rating-summary-value" data-media-id="amin_elhassan">--</div>
+          </div>
+          <div class="rating-summary-meta"><span data-votes-id="amin_elhassan">0</span> votes</div>
+        </div>
+        <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
+          <input type="hidden" name="entry.123456" value="Amin Elhassan">
+          <input type="hidden" name="entry.654321" value="" class="rating-input">
+          <div class="rating-options">
+            <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
+            <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
+          </div>
+          <div class="submit-row">
+            <button class="submit-btn" type="submit" disabled>Submit rating</button>
+            <div class="submit-status"></div>
+          </div>
+        </form>
+      </article>
+
+      <!-- 6. Bomani Jones -->
+      <article class="media-card" data-type="national">
+        <div class="media-photo-wrapper">
+          <img class="media-photo" src="https://ui-avatars.com/api/?name=Bomani+Jones&background=0B1020&color=F9FAFB&size=256" alt="Bomani Jones">
+        </div>
+        <header class="media-header">
+          <div>
+            <div class="media-name">Bomani Jones</div>
+            <div class="media-outlet">Analyst</div>
+          </div>
+          <span class="media-tag">National</span>
+        </header>
+        <div class="rating-summary">
+          <div>
+            <div class="rating-summary-label">Avg Fan Score</div>
+            <div class="rating-summary-value" data-media-id="bomani_jones">--</div>
+          </div>
+          <div class="rating-summary-meta"><span data-votes-id="bomani_jones">0</span> votes</div>
+        </div>
+        <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
+          <input type="hidden" name="entry.123456" value="Bomani Jones">
+          <input type="hidden" name="entry.654321" value="" class="rating-input">
+          <div class="rating-options">
+            <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
+            <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
+          </div>
+          <div class="submit-row">
+            <button class="submit-btn" type="submit" disabled>Submit rating</button>
+            <div class="submit-status"></div>
+          </div>
+        </form>
+      </article>
+
+      <!-- 7. Nick Wright -->
+      <article class="media-card" data-type="national">
+        <div class="media-photo-wrapper">
+          <img class="media-photo" src="https://ui-avatars.com/api/?name=Nick+Wright&background=0B1020&color=F9FAFB&size=256" alt="Nick Wright">
+        </div>
+        <header class="media-header">
+          <div>
+            <div class="media-name">Nick Wright</div>
+            <div class="media-outlet">FS1</div>
+          </div>
+          <span class="media-tag">National</span>
+        </header>
+        <div class="rating-summary">
+          <div>
+            <div class="rating-summary-label">Avg Fan Score</div>
+            <div class="rating-summary-value" data-media-id="nick_wright">--</div>
+          </div>
+          <div class="rating-summary-meta"><span data-votes-id="nick_wright">0</span> votes</div>
+        </div>
+        <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
+          <input type="hidden" name="entry.123456" value="Nick Wright">
+          <input type="hidden" name="entry.654321" value="" class="rating-input">
+          <div class="rating-options">
+            <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
+            <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
+          </div>
+          <div class="submit-row">
+            <button class="submit-btn" type="submit" disabled>Submit rating</button>
+            <div class="submit-status"></div>
+          </div>
+        </form>
+      </article>
+
+      <!-- 8. Skip Bayless -->
+      <article class="media-card" data-type="national">
+        <div class="media-photo-wrapper">
+          <img class="media-photo" src="https://ui-avatars.com/api/?name=Skip+Bayless&background=0B1020&color=F9FAFB&size=256" alt="Skip Bayless">
+        </div>
+        <header class="media-header">
+          <div>
+            <div class="media-name">Skip Bayless</div>
+            <div class="media-outlet">FS1</div>
+          </div>
+          <span class="media-tag">National</span>
+        </header>
+        <div class="rating-summary">
+          <div>
+            <div class="rating-summary-label">Avg Fan Score</div>
+            <div class="rating-summary-value" data-media-id="skip_bayless">--</div>
+          </div>
+          <div class="rating-summary-meta"><span data-votes-id="skip_bayless">0</span> votes</div>
+        </div>
+        <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
+          <input type="hidden" name="entry.123456" value="Skip Bayless">
+          <input type="hidden" name="entry.654321" value="" class="rating-input">
+          <div class="rating-options">
+            <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
+            <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
+          </div>
+          <div class="submit-row">
+            <button class="submit-btn" type="submit" disabled>Submit rating</button>
+            <div class="submit-status"></div>
+          </div>
+        </form>
+      </article>
+
+      <!-- 9. Shannon Sharpe -->
+      <article class="media-card" data-type="national">
+        <div class="media-photo-wrapper">
+          <img class="media-photo" src="https://ui-avatars.com/api/?name=Shannon+Sharpe&background=0B1020&color=F9FAFB&size=256" alt="Shannon Sharpe">
+        </div>
+        <header class="media-header">
+          <div>
+            <div class="media-name">Shannon Sharpe</div>
+            <div class="media-outlet">Nightcap / Independent</div>
+          </div>
+          <span class="media-tag">National</span>
+        </header>
+        <div class="rating-summary">
+          <div>
+            <div class="rating-summary-label">Avg Fan Score</div>
+            <div class="rating-summary-value" data-media-id="shannon_sharpe">--</div>
+          </div>
+          <div class="rating-summary-meta"><span data-votes-id="shannon_sharpe">0</span> votes</div>
+        </div>
+        <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
+          <input type="hidden" name="entry.123456" value="Shannon Sharpe">
+          <input type="hidden" name="entry.654321" value="" class="rating-input">
+          <div class="rating-options">
+            <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
+            <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
+          </div>
+          <div class="submit-row">
+            <button class="submit-btn" type="submit" disabled>Submit rating</button>
+            <div class="submit-status"></div>
+          </div>
+        </form>
+      </article>
+
+      <!-- 10. Malika Andrews -->
+      <article class="media-card" data-type="national">
+        <div class="media-photo-wrapper">
+          <img class="media-photo" src="https://ui-avatars.com/api/?name=Malika+Andrews&background=0B1020&color=F9FAFB&size=256" alt="Malika Andrews">
+        </div>
+        <header class="media-header">
+          <div>
+            <div class="media-name">Malika Andrews</div>
+            <div class="media-outlet">ESPN – NBA Today</div>
+          </div>
+          <span class="media-tag">National</span>
+        </header>
+        <div class="rating-summary">
+          <div>
+            <div class="rating-summary-label">Avg Fan Score</div>
+            <div class="rating-summary-value" data-media-id="malika_andrews">--</div>
+          </div>
+          <div class="rating-summary-meta"><span data-votes-id="malika_andrews">0</span> votes</div>
+        </div>
+        <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
+          <input type="hidden" name="entry.123456" value="Malika Andrews">
+          <input type="hidden" name="entry.654321" value="" class="rating-input">
+          <div class="rating-options">
+            <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
+            <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
+          </div>
+          <div class="submit-row">
+            <button class="submit-btn" type="submit" disabled>Submit rating</button>
+            <div class="submit-status"></div>
+          </div>
+        </form>
+      </article>
+
+      <!-- 11. Kendrick Perkins -->
+      <article class="media-card" data-type="national">
+        <div class="media-photo-wrapper">
+          <img class="media-photo" src="https://ui-avatars.com/api/?name=Kendrick+Perkins&background=0B1020&color=F9FAFB&size=256" alt="Kendrick Perkins">
+        </div>
+        <header class="media-header">
+          <div>
+            <div class="media-name">Kendrick Perkins</div>
+            <div class="media-outlet">ESPN – Analyst</div>
+          </div>
+          <span class="media-tag">National</span>
+        </header>
+        <div class="rating-summary">
+          <div>
+            <div class="rating-summary-label">Avg Fan Score</div>
+            <div class="rating-summary-value" data-media-id="kendrick_perkins">--</div>
+          </div>
+          <div class="rating-summary-meta"><span data-votes-id="kendrick_perkins">0</span> votes</div>
+        </div>
+        <form class="rating-form" method="POST" target="hidden_iframe" action="YOUR_GOOGLE_FORM_POST_URL_HERE">
+          <input type="hidden" name="entry.123456" value="Kendrick Perkins">
+          <input type="hidden" name="entry.654321" value="" class="rating-input">
+          <div class="rating-options">
+            <div class="rating-pill" data-value="10">10</div><div class="rating-pill" data-value="9">9</div><div class="rating-pill" data-value="8">8</div><div class="rating-pill" data-value="7">7</div><div class="rating-pill" data-value="6">6</div>
+            <div class="rating-pill" data-value="5">5</div><div class="rating-pill" data-value="4">4</div><div class="rating-pill" data-value="3">3</div><div class="rating-pill" data-value="2">2</div><div class="rating-pill" data-value="1">1</div>
+          </div>
+          <div class="submit-row">
+            <button class="submit-btn" type="submit" disabled>Submit rating</button>
+            <div class="submit-status"></div>
+          </div>
+        </form>
+      </article>
+
+    </div><!-- /cards-grid -->
+  </div><!-- /page-wrap -->
+
+  <!-- hidden iframe to submit without leaving page -->
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
+
+  <script>
+    // Enable selecting a rating and turning on the submit button
+    document.querySelectorAll('.media-card').forEach(card => {
+      const pills = card.querySelectorAll('.rating-pill');
+      const ratingInput = card.querySelector('.rating-input');
+      const submitBtn = card.querySelector('.submit-btn');
+      const statusEl = card.querySelector('.submit-status');
+      const form = card.querySelector('form');
+
+      pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          const v = pill.dataset.value;
+          ratingInput.value = v;
+          pills.forEach(p => p.classList.remove('selected'));
+          pill.classList.add('selected');
+          submitBtn.disabled = false;
+          if (statusEl) statusEl.textContent = "";
+        });
+      });
+
+      if (form) {
+        form.addEventListener('submit', () => {
+          submitBtn.disabled = true;
+          if (statusEl) statusEl.textContent = "Vote submitted ✅";
+        });
+      }
+    });
+  </script>
+</body>
+</html>
 
