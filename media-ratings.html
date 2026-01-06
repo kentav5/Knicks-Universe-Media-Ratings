@@ -531,10 +531,217 @@
       }
     });
   </script>
+  // 1) Put your PUBLISHED Summary CSV link here
+  const SUMMARY_CSV_URL = "<script>
+  // 1) Put your PUBLISHED Summary CSV link here
+  const SUMMARY_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT2aSqel_NhRmHV-eEl7NkgNpk1tPYwen8cnH9ufyXduQpyuURiGfHTXCAi7Ke56p7paEX3G1brmdtw/pub?gid=2017545017&single=true&output=csv";
+
+  // 2) Map your card IDs (data-media-id) to the exact name used in the Sheet
+  // These names MUST match the "Media Personality" values recorded in your responses.
+  const MEDIA_NAME_BY_ID = {
+    zach_lowe: "Zach Lowe",
+    stephen_a_smith: "Stephen A. Smith",
+    kevin_oconnor: "Kevin O'Connor (KOC)",
+    chris_vernon: "Chris Vernon",
+    amin_elhassan: "Amin Elhassan",
+    bomani_jones: "Bomani Jones",
+    nick_wright: "Nick Wright",
+    skip_bayless: "Skip Bayless",
+    shannon_sharpe: "Shannon Sharpe",
+    malika_andrews: "Malika Andrews",
+    kendrick_perkins: "Kendrick Perkins"
+  };
+
+  function parseCsvLine(line) {
+    // Simple CSV parser that handles commas inside quotes
+    const result = [];
+    let cur = "";
+    let inQuotes = false;
+
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') {
+        if (inQuotes && line[i + 1] === '"') {
+          cur += '"'; // escaped quote
+          i++;
+        } else {
+          inQuotes = !inQuotes;
+        }
+      } else if (ch === "," && !inQuotes) {
+        result.push(cur);
+        cur = "";
+      } else {
+        cur += ch;
+      }
+    }
+    result.push(cur);
+    return result.map(s => s.trim());
+  }
+
+  async function fetchSummaryAndUpdateUI() {
+    if (!SUMMARY_CSV_URL || SUMMARY_CSV_URL.includes("PASTE_")) {
+      console.warn("SUMMARY_CSV_URL not set yet.");
+      return;
+    }
+
+    // Cache-bust to avoid stale CSV
+    const url = SUMMARY_CSV_URL + (SUMMARY_CSV_URL.includes("?") ? "&" : "?") + "v=" + Date.now();
+
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) {
+      console.error("Failed to fetch Summary CSV:", res.status, res.statusText);
+      return;
+    }
+
+    const text = await res.text();
+    const lines = text.split(/\r?\n/).filter(Boolean);
+    if (lines.length < 2) return;
+
+    // Expecting columns: Media Personality, Avg Score, Votes
+    const rows = lines.slice(1).map(parseCsvLine);
+
+    // Build lookup by name
+    const byName = new Map();
+    for (const cols of rows) {
+      const name = cols[0];
+      const avg = cols[1];
+      const votes = cols[2];
+      if (name) byName.set(name, { avg, votes });
+    }
+
+    // Update each card's display
+    for (const [id, name] of Object.entries(MEDIA_NAME_BY_ID)) {
+      const scoreEl = document.querySelector(`[data-media-id="${id}"]`);
+      const votesEl = document.querySelector(`[data-votes-id="${id}"]`);
+
+      const rec = byName.get(name);
+
+      if (!rec) {
+        // If name mismatch, show placeholders but keep page stable
+        if (scoreEl) scoreEl.textContent = "--";
+        if (votesEl) votesEl.textContent = "0";
+        continue;
+      }
+
+      const avgNum = Number(rec.avg);
+      const votesNum = Number(rec.votes);
+
+      if (scoreEl) scoreEl.textContent = Number.isFinite(avgNum) ? avgNum.toFixed(1) : "--";
+      if (votesEl) votesEl.textContent = Number.isFinite(votesNum) ? String(votesNum) : "0";
+    }
+  }
+
+  // Run on page load, then refresh every 30 seconds
+  fetchSummaryAndUpdateUI();
+  setInterval(fetchSummaryAndUpdateUI, 30000);
+</script>
+";
+
+  // 2) Map your card IDs (data-media-id) to the exact name used in the Sheet
+  // These names MUST match the "Media Personality" values recorded in your responses.
+  const MEDIA_NAME_BY_ID = {
+    zach_lowe: "Zach Lowe",
+    stephen_a_smith: "Stephen A. Smith",
+    kevin_oconnor: "Kevin O'Connor (KOC)",
+    chris_vernon: "Chris Vernon",
+    amin_elhassan: "Amin Elhassan",
+    bomani_jones: "Bomani Jones",
+    nick_wright: "Nick Wright",
+    skip_bayless: "Skip Bayless",
+    shannon_sharpe: "Shannon Sharpe",
+    malika_andrews: "Malika Andrews",
+    kendrick_perkins: "Kendrick Perkins"
+  };
+
+  function parseCsvLine(line) {
+    // Simple CSV parser that handles commas inside quotes
+    const result = [];
+    let cur = "";
+    let inQuotes = false;
+
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') {
+        if (inQuotes && line[i + 1] === '"') {
+          cur += '"'; // escaped quote
+          i++;
+        } else {
+          inQuotes = !inQuotes;
+        }
+      } else if (ch === "," && !inQuotes) {
+        result.push(cur);
+        cur = "";
+      } else {
+        cur += ch;
+      }
+    }
+    result.push(cur);
+    return result.map(s => s.trim());
+  }
+
+  async function fetchSummaryAndUpdateUI() {
+    if (!SUMMARY_CSV_URL || SUMMARY_CSV_URL.includes("PASTE_")) {
+      console.warn("SUMMARY_CSV_URL not set yet.");
+      return;
+    }
+
+    // Cache-bust to avoid stale CSV
+    const url = SUMMARY_CSV_URL + (SUMMARY_CSV_URL.includes("?") ? "&" : "?") + "v=" + Date.now();
+
+    const res = await fetch(url, { cache: "no-store" });
+    if (!res.ok) {
+      console.error("Failed to fetch Summary CSV:", res.status, res.statusText);
+      return;
+    }
+
+    const text = await res.text();
+    const lines = text.split(/\r?\n/).filter(Boolean);
+    if (lines.length < 2) return;
+
+    // Expecting columns: Media Personality, Avg Score, Votes
+    const rows = lines.slice(1).map(parseCsvLine);
+
+    // Build lookup by name
+    const byName = new Map();
+    for (const cols of rows) {
+      const name = cols[0];
+      const avg = cols[1];
+      const votes = cols[2];
+      if (name) byName.set(name, { avg, votes });
+    }
+
+    // Update each card's display
+    for (const [id, name] of Object.entries(MEDIA_NAME_BY_ID)) {
+      const scoreEl = document.querySelector(`[data-media-id="${id}"]`);
+      const votesEl = document.querySelector(`[data-votes-id="${id}"]`);
+
+      const rec = byName.get(name);
+
+      if (!rec) {
+        // If name mismatch, show placeholders but keep page stable
+        if (scoreEl) scoreEl.textContent = "--";
+        if (votesEl) votesEl.textContent = "0";
+        continue;
+      }
+
+      const avgNum = Number(rec.avg);
+      const votesNum = Number(rec.votes);
+
+      if (scoreEl) scoreEl.textContent = Number.isFinite(avgNum) ? avgNum.toFixed(1) : "--";
+      if (votesEl) votesEl.textContent = Number.isFinite(votesNum) ? String(votesNum) : "0";
+    }
+  }
+
+  // Run on page load, then refresh every 30 seconds
+  fetchSummaryAndUpdateUI();
+  setInterval(fetchSummaryAndUpdateUI, 30000);
+</script>
+
 </body>
 </html>
 
 <!-- force rebuild -->
+
 
 
 
