@@ -675,11 +675,76 @@
       if (votesEl) votesEl.textContent = Number.isFinite(votesNum) ? String(votesNum) : "0";
     }
   }
+<script>
+  // --- Sorting helpers ---
+  function getCardName(card) {
+    const el = card.querySelector(".media-name");
+    return (el ? el.textContent : "").trim().toLowerCase();
+  }
+
+  function getCardAvg(card) {
+    // Reads whatever is currently displayed (e.g., "8.5" or "--")
+    const el = card.querySelector("[data-media-id]");
+    const v = el ? Number(el.textContent) : NaN;
+    return Number.isFinite(v) ? v : -1; // treat missing as -1 so it sorts last
+  }
+
+  function getCardVotes(card) {
+    const el = card.querySelector("[data-votes-id]");
+    const v = el ? Number(el.textContent) : NaN;
+    return Number.isFinite(v) ? v : 0;
+  }
+
+  function sortCards(mode) {
+    const grid = document.getElementById("mediaGrid");
+    if (!grid) return;
+
+    const cards = Array.from(grid.querySelectorAll(".media-card"));
+
+    cards.sort((a, b) => {
+      if (mode === "votes") {
+        const dv = getCardVotes(b) - getCardVotes(a);
+        if (dv !== 0) return dv;
+        return getCardAvg(b) - getCardAvg(a); // tie-breaker
+      }
+      if (mode === "az") {
+        return getCardName(a).localeCompare(getCardName(b));
+      }
+      // default: rating
+      const dr = getCardAvg(b) - getCardAvg(a);
+      if (dr !== 0) return dr;
+      return getCardVotes(b) - getCardVotes(a); // tie-breaker
+    });
+
+    // Re-append in sorted order
+    cards.forEach(card => grid.appendChild(card));
+  }
+
+  function initSorting() {
+    const buttons = document.querySelectorAll(".sortbtn");
+    if (!buttons.length) return;
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        buttons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        sortCards(btn.dataset.sort);
+      });
+    });
+
+    // Default sort to Highest Rated
+    sortCards("rating");
+  }
+</script>
 
   // Run after DOM loads (prevents “script ran too early” issues)
   document.addEventListener("DOMContentLoaded", () => {
     initVoting();
+    initSorting();
     fetchSummaryAndUpdateUI();
+  const active = document.querySelector(".sortbtn.active");
+  sortCards(active ? active.dataset.sort : "rating");
+
     setInterval(fetchSummaryAndUpdateUI, 30000);
   });
 </script>
@@ -892,6 +957,7 @@
 </html>
 
 <!-- force rebuild -->
+
 
 
 
