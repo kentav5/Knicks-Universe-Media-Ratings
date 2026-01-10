@@ -95,6 +95,34 @@
     @media (max-width:640px){
       h1{font-size:1.8rem}
     }
+    .sortbar{
+  margin-top:16px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+}
+.sortbar-label{
+  color:var(--muted);
+  font-size:.9rem;
+  font-weight:700;
+}
+.sortbtn{
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:rgba(15,23,42,.82);
+  color:var(--text);
+  cursor:pointer;
+  font-weight:800;
+  font-size:.85rem;
+}
+.sortbtn:hover{ transform:translateY(-1px); }
+.sortbtn.active{
+  border-color:var(--knicks-orange);
+  box-shadow:0 0 0 2px rgba(245,132,38,.25);
+}
+
   </style>
 </head>
 
@@ -125,6 +153,13 @@
       <span><strong>2 – Clueless Commentator 😵</strong> · Weak understanding, mostly wrong.</span>
       <span><strong>1 – Trash 🗑️</strong> · Bottom tier, universally disliked.</span>
     </div>
+
+<div class="sortbar">
+  <div class="sortbar-label">Sort:</div>
+  <button class="sortbtn active" data-sort="rating">Highest Rated</button>
+  <button class="sortbtn" data-sort="votes">Most Votes</button>
+  <button class="sortbtn" data-sort="az">A → Z</button>
+</div>
 
     <div class="cards-grid" id="mediaGrid">
 
@@ -857,6 +892,7 @@
 </html>
 
 <!-- force rebuild -->
+
 
 
 
