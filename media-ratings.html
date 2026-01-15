@@ -35,7 +35,63 @@
       margin:0 auto;
       padding:28px 16px 70px;
     }
+/* Top Nav */
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 0 16px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:14px;
+}
+.nav-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+.nav-logo{
+  width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(135deg, rgba(0,107,182,.95), rgba(245,132,38,.92));
+  box-shadow:0 10px 20px rgba(0,0,0,.25);
+  flex:0 0 auto;
+}
+.nav-title{
+  font-weight:950;
+  letter-spacing:.2px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.nav-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+}
+.nav a{
+  text-decoration:none;
+  color:var(--text);
+  font-weight:900;
+  font-size:.9rem;
+  padding:8px 12px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:rgba(2,6,23,.22);
+  transition:transform .12s ease, border-color .12s ease;
+}
+.nav a:hover{
+  transform:translateY(-1px);
+  border-color:rgba(245,132,38,.45);
+}
+.nav a.active{
+  border-color:var(--knicks-orange);
+  box-shadow:0 0 0 2px rgba(245,132,38,.22);
+}
 
+
+    
     header{
       display:flex;
       align-items:flex-end;
@@ -310,6 +366,18 @@
 
 <body>
   <div class="wrap">
+<nav class="nav">
+  <div class="nav-left">
+    <div class="nav-logo" aria-hidden="true"></div>
+    <div class="nav-title">Knicks Universe</div>
+  </div>
+
+  <div class="nav-links">
+    <a href="index.html">Hub</a>
+    <a class="active" href="media-ratings.html">Media Ratings</a>
+    <a href="https://kentav5.github.io/Knicks-Universe---Player-Polls/ratings.html" target="_blank" rel="noopener">Player Ratings</a>
+  </div>
+</nav>
 <nav class="nav">
   <div class="nav-left">
     <div class="nav-logo" aria-hidden="true"></div>
@@ -914,5 +982,6 @@
   </script>
 </body>
 </html>
+
 
 
