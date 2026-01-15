@@ -179,7 +179,34 @@
       border-color:var(--knicks-orange);
       box-shadow:0 0 0 2px rgba(245,132,38,.25);
     }
+/* Sort bar */
+.sortbtn.active{
+  border-color:var(--knicks-orange);
+  box-shadow:0 0 0 2px rgba(245,132,38,.25);
+}
 
+/* Top Nav */
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 0 16px;
+  border-bottom:1px solid var(--border);
+  margin-bottom:14px;
+}
+/* …rest of nav CSS … */
+
+/* Grid + cards */
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:16px;
+  margin-top:14px;
+}
+
+
+    
     /* Grid + cards */
     .cards-grid{
       display:grid;
@@ -982,6 +1009,7 @@
   </script>
 </body>
 </html>
+
 
 
 
